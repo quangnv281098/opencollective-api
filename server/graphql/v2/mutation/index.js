@@ -6,10 +6,12 @@ import conversationMutations from './ConversationMutations';
 import createCollectiveMutations from './CreateCollectiveMutations';
 import expenseMutations from './ExpenseMutations';
 import orderMutations from './OrderMutations';
+import commentReactionMutations from './CommentReactionMutations';
 import payoutMethodMutations from './PayoutMethodMutations';
 
 const mutation = {
   ...commentMutations,
+  ...commentReactionMutations,
   ...connectedAccountMutations,
   ...conversationMutations,
   ...createCollectiveMutations,
