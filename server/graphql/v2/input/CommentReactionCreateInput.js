@@ -1,4 +1,4 @@
-import { GraphQLInputObjectType, GraphQLInt, GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLInputObjectType, GraphQLInt, GraphQLString } from 'graphql';
 
 import { ExpenseReferenceInput } from './ExpenseReferenceInput';
 
@@ -28,6 +28,5 @@ export const CommentReactionCreateInput = new GraphQLInputObjectType({
       type: GraphQLInt,
       deprecationReason: '2019-02-26: Please use the expense field',
     },
-    ConversationId: { type: GraphQLString },
   }),
 });
