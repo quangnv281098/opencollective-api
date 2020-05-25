@@ -12,21 +12,9 @@ export const CommentReactionCreateInput = new GraphQLInputObjectType({
       type: GraphQLString,
       description: 'The emoji associated with the reaction',
     },
-    UserId: {
-      type: GraphQLString,
-      description: 'An unique identifier for the user id associated with this comment reaction',
-    },
-    CommentId: {
-      type: GraphQLString,
+    comment: {
+      type: CommentReferenceInput,
       description: 'An unique identifier for the comment id associated with this comment reaction',
-    },
-    expense: {
-      type: ExpenseReferenceInput,
-      description: 'If your comment is linked to an expense, set it here',
-    },
-    ExpenseId: {
-      type: GraphQLInt,
-      deprecationReason: '2019-02-26: Please use the expense field',
     },
   }),
 });

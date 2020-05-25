@@ -9,8 +9,6 @@ import { CommentReactionCreateInput } from '../input/CommentReactionCreateInput'
 async function createCommentReaction(entity, args, req) {
   if (!req.remoteUser) {
     throw new Unauthorized();
-  } else if (!canUseFeature(req.remoteUser, FEATURE.CONVERSATIONS)) {
-    throw new FeatureNotAllowedForUser();
   }
 
   const { emoji, comment } = args;
@@ -21,8 +19,6 @@ async function createCommentReaction(entity, args, req) {
 async function deleteCommentReaction(id, remoteUser) {
   if (!remoteUser) {
     throw new Unauthorized();
-  } else if (!canUseFeature(remoteUser, FEATURE.CONVERSATIONS)) {
-    throw new FeatureNotAllowedForUser();
   }
   return await models.CommentReaction.addCommentReaction(id);
 }

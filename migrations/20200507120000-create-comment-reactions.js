@@ -8,6 +8,13 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      FromCollectiveId: {
+        type: DataTypes.INTEGER,
+        references: { key: 'id', model: 'Users' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        allowNull: false,
+      },
       UserId: {
         type: DataTypes.INTEGER,
         references: { key: 'id', model: 'Users' },
@@ -18,7 +25,7 @@ module.exports = {
       CommentId: {
         type: DataTypes.INTEGER,
         references: { key: 'id', model: 'Comments' },
-        onDelete: 'NO ACTION',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
         allowNull: false,
       },
@@ -38,8 +45,7 @@ module.exports = {
       },
     });
 
-    await queryInterface.addIndex('CommentReactions', ['CommentId']);
-    await queryInterface.addIndex('CommentReactions', ['UserId', 'CommentId', 'emoji'], {
+    await queryInterface.addIndex('CommentReactions', ['CommentId', 'FromCollectiveId', 'emoji'], {
       indexName: `CommentReactions_UserId_CommentId_emoji`,
       indicesType: 'UNIQUE',
     });

@@ -18,7 +18,13 @@ export default function (Sequelize, DataTypes) {
         onUpdate: 'CASCADE',
         allowNull: false,
       },
-
+      FromCollectiveId: {
+        type: DataTypes.INTEGER,
+        references: { key: 'id', model: 'Users' },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        allowNull: false,
+      },
       CommentId: {
         type: DataTypes.INTEGER,
         references: { key: 'id', model: 'Comments' },
