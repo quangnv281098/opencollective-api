@@ -30,4 +30,12 @@ export default {
         .then(results => sortResults(ExpenseIds, results, 'ExpenseId', { count: 0 }))
         .map(result => result.count),
     ),
+  reactionsByCommentId: (): DataLoader<number, object> =>
+    new DataLoader(async (commentIds: number[]) => {
+      const commentReactions = await models.CommentReaction.findAll({
+        where: { CommentId: { [Op.in]: commentIds } },
+      });
+
+      return commentReactions;
+    }),
 };
