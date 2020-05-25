@@ -1,9 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { CommentReaction } from '../object/CommentReaction';
 import models from '../../../models';
-import { FeatureNotAllowedForUser, Unauthorized } from '../../errors';
-import { canUseFeature } from '../../../lib/user-permissions';
-import FEATURE from '../../../constants/feature';
+import { Unauthorized } from '../../errors';
 import { CommentReactionCreateInput } from '../input/CommentReactionCreateInput';
 
 async function createCommentReaction(entity, args, req) {

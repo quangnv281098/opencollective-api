@@ -10,7 +10,6 @@ import models, { Op, sequelize } from '../../models';
 
 import collectiveLoaders from './collective';
 import commentsLoader from './comments';
-import commentReactionLoader from './comment-reaction';
 import conversationLoaders from './conversation';
 import * as expenseLoaders from './expenses';
 import { createDataLoaderWithOptions, sortResults } from './helpers';

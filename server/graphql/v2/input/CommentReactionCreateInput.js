@@ -1,6 +1,6 @@
-import { GraphQLInputObjectType, GraphQLInt, GraphQLString } from 'graphql';
+import { GraphQLInputObjectType, GraphQLString } from 'graphql';
 
-import { ExpenseReferenceInput } from './ExpenseReferenceInput';
+import { CommentReferenceInput } from './CommentReferenceInput';
 
 /**
  * Input type to use as the type for the comment input in createComment mutation.

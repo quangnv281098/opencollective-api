@@ -2,7 +2,7 @@ import DataLoader from 'dataloader';
 
 import models, { Op } from '../../models';
 
-import { createDataLoaderWithOptions, sortResults } from './helpers';
+import { createDataLoaderWithOptions, sortResults, sortResultsSimple } from './helpers';
 
 export default {
   findAllByAttribute: (_, cache) => (attribute: string): DataLoader<string | number, object> => {
@@ -31,11 +31,10 @@ export default {
         .map(result => result.count),
     ),
   reactionsByCommentId: (): DataLoader<number, object> =>
-    new DataLoader(async (commentIds: number[]) => {
-      const commentReactions = await models.CommentReaction.findAll({
-        where: { CommentId: { [Op.in]: commentIds } },
-      });
-
-      return commentReactions;
-    }),
+    new DataLoader(CommentIds =>
+      models.CommentReaction.findAll({
+        where: { CommentId: { [Op.in]: CommentIds } },
+      })
+        .then(results => sortResultsSimple(CommentIds, results, result => result.dataValues['__comment_id__']))
+    ),
 };
