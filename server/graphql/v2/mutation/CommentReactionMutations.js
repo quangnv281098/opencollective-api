@@ -1,8 +1,9 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
-import { CommentReaction } from '../object/CommentReaction';
+
 import models from '../../../models';
 import { Unauthorized } from '../../errors';
 import { CommentReactionCreateInput } from '../input/CommentReactionCreateInput';
+import { CommentReaction } from '../object/CommentReaction';
 
 async function createCommentReaction(entity, args, req) {
   if (!req.remoteUser) {

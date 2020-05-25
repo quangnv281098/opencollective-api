@@ -1,4 +1,5 @@
 import { EMOJI_TYPES } from '../constants/emojiTypes';
+
 import models from './index';
 
 export default function (Sequelize, DataTypes) {
