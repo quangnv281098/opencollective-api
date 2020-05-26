@@ -10,14 +10,6 @@ const CommentReaction = new GraphQLObjectType({
         type: GraphQLString,
         description: 'An unique identifier for this comment reaction',
       },
-      UserId: {
-        type: GraphQLString,
-        description: 'An unique identifier for the user id associated with this comment reaction',
-      },
-      CommentId: {
-        type: GraphQLString,
-        description: 'An unique identifier for the comment id associated with this comment reaction',
-      },
       emoji: {
         type: GraphQLString,
         description: 'The emoji associated with this user and comment',

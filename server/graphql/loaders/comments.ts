@@ -35,6 +35,6 @@ export default {
       models.CommentReaction.findAll({
         where: { CommentId: { [Op.in]: CommentIds } },
       })
-        .then(results => sortResultsSimple(CommentIds, results, result => result.dataValues['__comment_id__']))
+        .then(results => sortResultsSimple(CommentIds, results, reaction => reaction.CommentId))
     ),
 };
