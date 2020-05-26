@@ -1,7 +1,8 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 
+import { mustBeLoggedInTo } from '../../../lib/auth';
 import models from '../../../models';
-import { Unauthorized } from '../../errors';
+import { NotFound, Unauthorized } from '../../errors';
 import { CommentReactionCreateInput } from '../input/CommentReactionCreateInput';
 import { CommentReaction } from '../object/CommentReaction';
 
@@ -12,14 +13,21 @@ async function createCommentReaction(entity, args, req) {
 
   const { emoji, comment } = args;
 
-  return await models.CommentReaction.addCommentReaction(req.remoteUser, comment, emoji);
+  return await models.CommentReaction.addReaction(req.remoteUser, comment, emoji);
 }
 
 async function deleteCommentReaction(id, remoteUser) {
-  if (!remoteUser) {
-    throw new Unauthorized();
+  mustBeLoggedInTo(remoteUser, 'remove this comment reaction');
+  const commentReaction = await models.CommentReaction.findByPk(id);
+  if (!commentReaction) {
+    throw new NotFound(`This comment reaction does not exist or has been deleted.`);
   }
-  return await models.CommentReaction.addCommentReaction(id);
+  // Check permissions
+  if (remoteUser.id !== commentReaction.UserId) {
+    throw new Unauthorized('You need to be the owner of this comment reaction to be able to delete it');
+  }
+
+  return commentReaction.removeReaction(id);
 }
 
 const commentReactionMutations = {

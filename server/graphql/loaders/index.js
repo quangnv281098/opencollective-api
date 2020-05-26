@@ -25,7 +25,7 @@ export const loaders = req => {
   context.loaders.Comment.countByExpenseId = commentsLoader.countByExpenseId(req, cache);
 
   // Comment Reactions
-  context.loaders.Comment.findAllByCommentId = commentsLoader.reactionsByCommentId(req, cache);
+  context.loaders.Comment.reactionsByCommentId = commentsLoader.reactionsByCommentId(req, cache);
 
   // Conversation
   context.loaders.Conversation.followers = conversationLoaders.followers(req, cache);

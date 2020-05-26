@@ -81,8 +81,8 @@ export default function (Sequelize, DataTypes) {
     });
   };
 
-  CommentReaction.prototype.removeReaction = async function () {
-    const commentReaction = await models.CommentReaction.findOne({ where: { CommentId: this.id } });
+  CommentReaction.prototype.removeReaction = async function (id) {
+    const commentReaction = await models.CommentReaction.findOne({ where: { CommentId: id } });
     await commentReaction.destroy();
     return commentReaction;
   };
