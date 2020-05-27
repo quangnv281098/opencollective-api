@@ -2,6 +2,7 @@ import { GraphQLNonNull, GraphQLString } from 'graphql';
 
 import { mustBeLoggedInTo } from '../../../lib/auth';
 import models from '../../../models';
+import LoggedInUser from '../../../models/User';
 import { NotFound, Unauthorized } from '../../errors';
 import { CommentReactionCreateInput } from '../input/CommentReactionCreateInput';
 import { CommentReaction } from '../object/CommentReaction';
@@ -23,8 +24,8 @@ async function deleteCommentReaction(id, remoteUser) {
     throw new NotFound(`This comment reaction does not exist or has been deleted.`);
   }
   // Check permissions
-  if (remoteUser.id !== commentReaction.UserId) {
-    throw new Unauthorized('You need to be the owner of this comment reaction to be able to delete it');
+  if (LoggedInUser.isAdmin(commentReaction.FromCollectiveId)) {
+    throw new Unauthorized('You need to be the admin of this collective to be able to delete it');
   }
 
   return commentReaction.removeReaction(id);
