@@ -6,18 +6,25 @@ const expressInput = input.express.create();
 
 export const middleware = (req, res, next) => {
   req.startAt = new Date();
+
   res.on('finish', () => {
     const { success, reject } = expressInput;
     req.endAt = new Date();
     try {
       const executionTime = req.endAt - req.startAt;
       let log = hyperwatch.util.createLog(req, res).set('executionTime', executionTime);
+
+      log = log.deleteIn(['request', 'headers', 'authorization']);
+      log = log.deleteIn(['request', 'headers', 'cookie']);
+
       if (req.body && req.body.query && req.body.variables) {
         log = log.set('graphql', req.body);
       }
+
       if (req.clientApp) {
         log = log.setIn(['opencollective', 'application', 'id'], req.clientApp.id);
       }
+
       if (req.remoteUser) {
         log = log.setIn(['opencollective', 'user', 'id'], req.remoteUser.id);
         log = log.setIn(['opencollective', 'user', 'email'], req.remoteUser.email);
@@ -32,6 +39,7 @@ export const middleware = (req, res, next) => {
       }
     }
   });
+
   next();
 };
 
