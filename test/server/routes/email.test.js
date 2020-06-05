@@ -225,7 +225,9 @@ describe('server/routes/email', () => {
         expect(emailsSent[0][1]).to.equal('admins@testcollective.opencollective.com');
         expect(emailsSent[0][2].subject).to.equal('test collective admins');
         expect([emailsSent[0][3].bcc, emailsSent[1][3].bcc]).to.contain(usersData[0].email);
-        expect(emailsSent[0][3].from).to.equal('testcollective collective <hello@testcollective.opencollective.com>');
+        expect(emailsSent[0][3].from).to.equal(
+          'testcollective collective <no-reply@testcollective.opencollective.com>',
+        );
       });
   });
 
